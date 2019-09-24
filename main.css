@@ -1,0 +1,32 @@
+body {
+    margin: 0px;
+}
+
+#container {
+    background-color: grey;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tracker {
+    width: 90%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+
+}
+
+.tracker div {
+    width: 40%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
