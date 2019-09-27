@@ -1,33 +1,49 @@
-const init = (init,cb=null)=>(cb && cb(init)||true)&&({get:()=>init,set:(next)=>(cb)?cb(init=next):init=next});
+function  init (init,cb=null){
+  return (cb && cb(init)||true)&&({get:()=>init,set:(next)=>(cb)?cb(init=next):init=next});
+}
 
-const acts = (obj={}) => {
+function  acts (obj={}) {
   const acts = init({...obj})
 
   return ({
     sub:(act,fn)=>acts.set(Object.assign({},acts.get(),{[act]:fn})),
     pub:(act)=>acts.get()[act]
   });
-};
+}
 
-const pipe = (...fns) => (x) => fns.reduce((a,c)=>c(a),x);
+function  pipe (...fns) {
+  return (x) => fns.reduce((a,c)=>c(a),x);
+}
 
-const grab = (id) => document.getElementById(id);
+function  grab (id) { return document.getElementById(id);}
 
-const edit_prop = (prop) => (comp) => (v) => (comp[prop]=v) && comp;
+function  edit_prop (prop) {
+  return function (comp) {
+    return function (v) { 
+      return(comp[prop]=v) && comp;
+    };
+  };
+}
 
-const put = (component) => (host) => host.append(component) || host;
+function  put (component) {
+  return function (host) {
+    return host.append(component) || host;
+  };
+}
 
-const empty = (host) => (!host.firstChild)
-      ? host
-      : host.removeChild(host.firstChild) && empty(host);
+function empty (host) {
+  return (!host.firstChild)
+    ? host
+    : host.removeChild(host.firstChild) && empty(host);
+}
 
-const button = (txt) => {
+function button (txt) {
   const el = document.createElement('button');
   el.textContent = txt;
   return el;
-};
+}
 
-const tracker = (z,id,img) => {
+function tracker (z,id,img) {
   const cont = document.createElement('div');
   const token = document.createElement('div');
   const count = document.createElement('div');
@@ -56,15 +72,17 @@ const tracker = (z,id,img) => {
 
 const fizzle = button('fizzle');
 
-const build = (host) => pipe(
-  put(fizzle),
-  put(tracker(0,'storm','assets/storm.svg')),
-  put(tracker(0,'black','assets/black.svg')),
-  put(tracker(0,'red','assets/red.svg')),
-  put(tracker(0,'blue','assets/blue.svg')),
-  put(tracker(0,'green','assets/green.svg')),
-  put(tracker(0,'white','assets/white.svg')),
-)(host);
+function build (host) {
+  return pipe(
+    put(fizzle),
+    put(tracker(0,'storm','assets/storm.svg')),
+    put(tracker(0,'black','assets/black.svg')),
+    put(tracker(0,'red','assets/red.svg')),
+    put(tracker(0,'blue','assets/blue.svg')),
+    put(tracker(0,'green','assets/green.svg')),
+    put(tracker(0,'white','assets/white.svg')),
+  )(host);
+}
 
 fizzle.addEventListener('click',()=>empty(grab('container'))&&build(grab('container')));
 
