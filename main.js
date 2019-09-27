@@ -28,7 +28,7 @@ const button = (txt) => {
 };
 
 const tracker = (z,id,img) => {
-  const container = document.createElement('div');
+  const cont = document.createElement('div');
   const token = document.createElement('div');
   const count = document.createElement('div');
 
@@ -48,10 +48,10 @@ const tracker = (z,id,img) => {
   count.style.color = `${id}`;
   count.style.fontSize = '3em';
 
-  edit_prop('id')(container)(id);
-  edit_prop('className')(container)('tracker');
+  edit_prop('id')(cont)(id);
+  edit_prop('className')(cont)('tracker');
 
-  return pipe(put(token),put(up),put(count),(id==='storm')?(x)=>x:put(down))(container);
+  return pipe(put(token),put(up),put(count),(id==='storm')?(x)=>x:put(down))(cont);
 }
 
 const fizzle = button('fizzle');
