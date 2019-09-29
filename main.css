@@ -15,20 +15,27 @@ body {
 }
 
 .tracker {
-    width: 90%;
+    width: 98%;
     height: 15%;
     display: flex;
     align-items: center;
-
+    justify-content: center;
+    margin: 2px;
 }
 
 .tracker div {
-    width: 40%;
-    height: 90%;
+    width: 50%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.button {
+    background-color: white;
+    height: 100%;
+    width: 30%;
 }

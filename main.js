@@ -38,15 +38,19 @@ function empty (host) {
 }
 
 function button (txt) {
-  const el = document.createElement('button');
+  const el = document.createElement('div');
   el.textContent = txt;
+  el.className = 'button';
   return el;
 }
+
+const fizzle = button('fizzle');
 
 function tracker (z,id,img) {
   const cont = document.createElement('div');
   const token = document.createElement('div');
   const count = document.createElement('div');
+  const count_cont = document.createElement('div');
 
   const state = init(z,edit_prop('textContent')(count));
   const inc = pipe(state.get,(x)=>x+1,state.set);
@@ -63,18 +67,21 @@ function tracker (z,id,img) {
   token.style.backgroundImage = `url(${img})`;
   count.style.color = `${id}`;
   count.style.fontSize = '3em';
+  count.style.width = '30%';
+  count_cont.style.border = '1px solid white';
 
   edit_prop('id')(cont)(id);
   edit_prop('className')(cont)('tracker');
 
-  return pipe(put(token),put(up),put(count),(id==='storm')?(x)=>x:put(down))(cont);
+  pipe(put(up),put(count),(id==='storm')?put(fizzle):put(down))(count_cont)
+
+  return pipe(put(token),put(count_cont))(cont);
 }
 
-const fizzle = button('fizzle');
+
 
 function build (host) {
   return pipe(
-    put(fizzle),
     put(tracker(0,'storm','assets/storm.svg')),
     put(tracker(0,'black','assets/black.svg')),
     put(tracker(0,'red','assets/red.svg')),
